@@ -12,16 +12,16 @@
 #include <fcntl.h>
 #include <errno.h>
 
+/* for read/write buffers */
+#define READ_BUF_SIZE 1024
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH -1
+
 /* for command chaining */
 #define CMD_NORM	0
 #define CMD_OR		1
 #define CMD_AND		2
 #define CMD_CHAIN	3
-
-/* for read/write buffers */
-#define READ_BUF_SIZE 1024
-#define WRITE_BUF_SIZE 1024
-#define BUF_FLUSH -1
 
 /* for convert_number() */
 #define CONVERT_LOWERCASE	1
@@ -53,18 +53,18 @@ typedef struct liststr
 /**
  * struct passinfo - contains pseudo-arguements to pass into a function,
  * allowing uniform prototype for function pointer struct
- * @arg: string generated from getline containing arguements
+ * @arg: a string generated from getline containing arguements
  * @argv:an array of strings generated from arg
  * @path: a string path for the current command
  * @argc: the argument count
  * @line_count: the error count
- * @err_num: error code for exit()s
+ * @err_num: the error code for exit()s
  * @linecount_flag: if on count this line of input
  * @fname: the program filename
  * @env: linked list local copy of environ
  * @environ: custom modified copy of environ from LL env
  * @history: the history node
- * @alias: alias node
+ * @alias: the alias node
  * @env_changed: on if environ was changed
  * @status: the return status of the last exec'd command
  * @cmd_buf: address of pointer to cmd_buf, on if chaining
@@ -100,7 +100,7 @@ typedef struct passinfo
 		0, 0, 0}
 
 /**
- * struct builtin - contain a builtin string and related function
+ * struct builtin - contains a builtin string and related function
  * @type: the builtin command flag
  * @func: the function
  */
@@ -109,7 +109,6 @@ typedef struct builtin
 	char *type;
 	int (*func)(info_t *);
 } builtin_table;
-
 
 
 /* toem_shloop.c */
